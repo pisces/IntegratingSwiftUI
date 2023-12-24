@@ -17,6 +17,7 @@
 		CE2098DA2B1C9BEC001F074B /* ScreenB.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2098D92B1C9BEC001F074B /* ScreenB.swift */; };
 		CE2098DC2B1C9FE2001F074B /* ScreenC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2098DB2B1C9FE2001F074B /* ScreenC.swift */; };
 		CE2098DE2B1CA3BC001F074B /* SwiftUIViewHostingCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2098DD2B1CA3BC001F074B /* SwiftUIViewHostingCompatible.swift */; };
+		CEE8393C2B385A23005478F3 /* SwiftUIViewHostingCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE8393B2B385A23005478F3 /* SwiftUIViewHostingCommon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CE2098D92B1C9BEC001F074B /* ScreenB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenB.swift; sourceTree = "<group>"; };
 		CE2098DB2B1C9FE2001F074B /* ScreenC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenC.swift; sourceTree = "<group>"; };
 		CE2098DD2B1CA3BC001F074B /* SwiftUIViewHostingCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewHostingCompatible.swift; sourceTree = "<group>"; };
+		CEE8393B2B385A23005478F3 /* SwiftUIViewHostingCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewHostingCommon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				CE2098D92B1C9BEC001F074B /* ScreenB.swift */,
 				CE2098DB2B1C9FE2001F074B /* ScreenC.swift */,
 				CE2098DD2B1CA3BC001F074B /* SwiftUIViewHostingCompatible.swift */,
+				CEE8393B2B385A23005478F3 /* SwiftUIViewHostingCommon.swift */,
 				CE2098D72B1C9ABC001F074B /* UINavigationBarAppearance+.swift */,
 				CE2098CC2B1C985A001F074B /* Assets.xcassets */,
 				CE2098CE2B1C985A001F074B /* LaunchScreen.storyboard */,
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE8393C2B385A23005478F3 /* SwiftUIViewHostingCommon.swift in Sources */,
 				CE2098C82B1C985A001F074B /* ScreenAViewController.swift in Sources */,
 				CE2098DA2B1C9BEC001F074B /* ScreenB.swift in Sources */,
 				CE2098C42B1C985A001F074B /* AppDelegate.swift in Sources */,

@@ -17,15 +17,16 @@ struct ScreenC: View {
         .background(Color.pink)
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea()
-        .navigationTitle("Screen C")
     }
 }
 
 extension ScreenC: SwiftUIViewHostingCompatible {
+    var navigationTitle: String {
+       "Screen C"
+    }
+
     func transformNavigationController(_ navigationController: UINavigationController) {
-        navigationController.navigationBar.prefersLargeTitles = false
-        navigationController.navigationBar.topItem?.backButtonDisplayMode = .minimal
-        navigationController.isNavigationBarHidden = false
+        SwiftUIViewHostingCommon.navigationTransform(navigationController)
     }
 }
 

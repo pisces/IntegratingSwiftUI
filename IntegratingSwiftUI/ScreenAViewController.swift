@@ -19,11 +19,7 @@ class ScreenAViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController {
-            navigationController.navigationBar.prefersLargeTitles = false
-            navigationController.navigationBar.tintColor = .white
-            navigationController.navigationBar.standardAppearance = .common
-            navigationController.navigationBar.scrollEdgeAppearance = .common
-            navigationController.navigationBar.compactAppearance = .common
+            SwiftUIViewHostingCommon.navigationTransform(navigationController)
         }
     }
 

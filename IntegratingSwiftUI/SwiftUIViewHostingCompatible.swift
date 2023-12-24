@@ -10,79 +10,72 @@ import SwiftUI
 // MARK: - SwiftUIViewHostingCompatible
 
 public protocol SwiftUIViewHostingCompatible: View {
+    var navigationTitle: String { get }
     func transformNavigationController(_ navigationController: UINavigationController)
 }
 
 extension SwiftUIViewHostingCompatible {
     public func hostingController() -> CompatibleHostingController<Self> {
-        CompatibleHostingController(rootView: self, navigationTransform: transformNavigationController)
+        let controller = CompatibleHostingController(rootView: self)
+        controller.navigationItem.title = navigationTitle
+        return controller
     }
 
     public func hostingControllerPresentor() -> some View {
-        CompatibleHostingControllerRepresentor(
-            rootView: self,
-            navigationTransform: transformNavigationController)
-        .ignoresSafeArea()
+        CompatibleHostingControllerRepresentor(rootView: self)
+            .navigationTitle(navigationTitle)
+            .ignoresSafeArea()
     }
 }
 
 // MARK: - CompatibleHostingController
 
-public final class CompatibleHostingController<T>: UIHostingController<T> where T: View {
+public final class CompatibleHostingController<T>: UIHostingController<T> where T: SwiftUIViewHostingCompatible {
 
     // MARK: Lifecycle
 
-    public init(rootView: T, navigationTransform: @escaping NavigationTransform = { _ in }) {
-        self.navigationTransform = navigationTransform
-        super.init(rootView: rootView)
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        wasNavigationBarHidden = navigationController?.isNavigationBarHidden
-    }
-
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let navigationController {
-            navigationController.isNavigationBarHidden = true
-            navigationTransform(navigationController)
-        }
+        transformNavigationIfExist()
     }
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let wasNavigationBarHidden {
-            navigationController?.isNavigationBarHidden = wasNavigationBarHidden
-        }
+        setNavigationBarHiddenIfExist()
     }
 
     // MARK: Public
 
-    public typealias NavigationTransform = (UINavigationController) -> Void
+    private func transformNavigationIfExist() {
+        if let navigationController {
+            rootView.transformNavigationController(navigationController)
+        }
+    }
 
-    // MARK: Private
-
-    private let navigationTransform: NavigationTransform
-
-    private var wasNavigationBarHidden: Bool?
+    private func setNavigationBarHiddenIfExist() {
+        if let navigationController {
+            let name = "\(String(describing: navigationController.visibleViewController))"
+            let isHostingController = name.contains("HostingController") == true
+            let isHidden = !isHostingController
+            navigationController.setNavigationBarHidden(isHidden, animated: true)
+        }
+    }
 }
 
 // MARK: - CompatibleHostingControllerRepresentor
 
-public struct CompatibleHostingControllerRepresentor<T>: UIViewControllerRepresentable where T: View {
+public struct CompatibleHostingControllerRepresentor<T>: UIViewControllerRepresentable where T: SwiftUIViewHostingCompatible {
     public typealias UIViewControllerType = CompatibleHostingController<T>
 
     public let rootView: T
-    public let navigationTransform: CompatibleHostingController.NavigationTransform
 
     public func makeUIViewController(context: Context) -> UIViewControllerType {
-        CompatibleHostingController(rootView: rootView, navigationTransform: navigationTransform)
+        CompatibleHostingController(rootView: rootView)
     }
 
     public func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
 }
+
+// MARK: Public
+
+public typealias NavigationTransform = (UINavigationController) -> Void

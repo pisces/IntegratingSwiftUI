@@ -20,15 +20,16 @@ struct ScreenB: View {
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .background(Color.green)
         .edgesIgnoringSafeArea(.all)
-        .navigationTitle("Screen B")
     }
 }
 
 extension ScreenB: SwiftUIViewHostingCompatible {
+    var navigationTitle: String {
+       "Screen B"
+    }
+
     func transformNavigationController(_ navigationController: UINavigationController) {
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.topItem?.backButtonDisplayMode = .minimal
-        navigationController.isNavigationBarHidden = false
+        SwiftUIViewHostingCommon.navigationTransform(navigationController)
     }
 }
 
